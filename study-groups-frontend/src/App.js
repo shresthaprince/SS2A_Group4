@@ -10,7 +10,7 @@ import NavBar from "./components/navbar";
 import Footer from "./components/footer";
 import Login from "./components/login";
 import NotFound from "./components/notFound";
-import Empty from "./components/empty";
+import HomeView from "./components/home_view";
 
 class App extends Component {
   state = {};
@@ -23,7 +23,7 @@ class App extends Component {
 
           <Switch>
             <Route path="/login" component={Login}></Route>
-            <Route exact path="/" component={Empty}></Route>
+            <Route exact path="/" component={HomeView}></Route>
             <Route path="/not-found" component={NotFound}></Route>
             <Redirect to="/not-found" />
           </Switch>
