@@ -3,6 +3,12 @@ import Logo from "../images/logo.png";
 import "../styles/login.css";
 
 class Login extends Component {
+  submitHandler = (event) => {
+    console.log("Submitted");
+    event.preventDefault();
+    window.location = "/students";
+  };
+
   render() {
     return (
       <div className="login-body text-center d-flex justify-content-center">
@@ -35,7 +41,10 @@ class Login extends Component {
               <input type="checkbox" value="remember-me" /> Remember me
             </label>
           </div>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">
+          <button
+            className="btn btn-lg btn-primary btn-block"
+            onClick={this.submitHandler}
+          >
             Sign in
           </button>
           <p className="mt-5 mb-3 text-muted">&copy; 2020</p>

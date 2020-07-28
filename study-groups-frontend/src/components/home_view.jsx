@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/puzzle.css";
+import "../styles/rectangles.css";
 import Rectangle from "./common/rectangle";
 
 const HomeView = () => {
@@ -16,7 +16,7 @@ const HomeView = () => {
   return (
     <div className="login-body text-center">
       <svg id="loading" viewBox="0 0 200 160">
-        <g transform="translate(100 0) scale(0.707 0.707) rotate(45 0 0)">
+        <g transform="translate(100 0) scale(0.8 0.8) rotate(45 0 0)">
           {rectangles.map((rectangle) => (
             <Rectangle key={rectangle.id} attributes={rectangle} />
           ))}

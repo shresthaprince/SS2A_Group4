@@ -1,17 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import HomeTop from "./home_top";
+import HomeView from "./home_view";
+import Login from "./login";
+import NotFound from "./notFound";
 
-class Home extends Component {
-  render() {
-    return (
-      <div className="header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 className="display-3">Study Groups</h1>
-        <p className="lead">
-          ~ When I die, I want the people I did group projects with to lower me
-          so they can let me down one last time ~
-        </p>
-      </div>
-    );
-  }
-}
+const Home = () => {
+  return (
+    <>
+      <HomeTop />
+      <Switch>
+        <Route path="/login" component={Login}></Route>
+        <Route exact path="/" component={HomeView}></Route>
+        <Route path="/not-found" component={NotFound}></Route>
+        <Redirect to="/not-found" />
+      </Switch>
+    </>
+  );
+};
 
 export default Home;
