@@ -56,7 +56,7 @@ class Login extends Component {
             </label>
           </div>
           <div>
-            <Link className="my-2 my-md-0 mr-md-3">
+            <Link to="/forgotpsw" className="my-2 my-md-0 mr-md-3">
               Forgot Password
             </Link>
           </div>

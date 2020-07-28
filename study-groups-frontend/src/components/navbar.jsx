@@ -10,13 +10,13 @@ const NavBar = () => {
         </Link>
       </h5>
       <nav className="my-2 my-md-0 mr-md-3">
-        <NavLink className="p-2 text-dark" to="/">
+        <NavLink className="p-2 text-dark" to="/courses">
           Courses
         </NavLink>
-        <NavLink className="p-2 text-dark" to="/">
+        <NavLink className="p-2 text-dark" to="/tools">
           Tools
         </NavLink>
-        <NavLink className="p-2 text-dark" to="/">
+        <NavLink className="p-2 text-dark" to="/support">
           Support
         </NavLink>
       </nav>
