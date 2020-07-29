@@ -8,3 +8,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+.forgot-form{
+  width:450px;
+  margin: auto;
+}
