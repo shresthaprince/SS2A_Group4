@@ -15,15 +15,16 @@ const HomeView = () => {
 
   return (
     <div className="login-body text-center">
-      <svg id="loading" viewBox="0 0 200 160">
-        <g transform="translate(100 0) scale(0.8 0.8) rotate(45 0 0)">
+      <svg id="loading" viewBox="0 0 200 200">
+        <g transform="translate(100 0) scale(1 1) rotate(45 0 0)">
           {rectangles.map((rectangle) => (
             <Rectangle key={rectangle.id} attributes={rectangle} />
           ))}
         </g>
       </svg>
       <h3 className="display-5">
-        Get your projects started off with students on the same page as you.
+        Set your preferences and get allocated with students on the same page as
+        you.
       </h3>
     </div>
   );

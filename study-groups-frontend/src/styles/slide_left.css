@@ -1,0 +1,12 @@
+.slide-left {
+    animation: slide_left 0.7s;
+}
+
+@keyframes slide_left {
+    0% {
+        transform: translateX(50%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}

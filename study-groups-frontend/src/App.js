@@ -1,29 +1,45 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import NavBar from "./components/navbar";
+import Home from "./components/home";
+import Dashboard from "./components/dashboard";
+import Logout from "./components/logout";
+import auth from "./services/authService";
+import UserContext from "./components/context/userContext";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
-
-import NavBar from "./components/navbar";
-import Footer from "./components/footer";
-import Home from "./components/home";
-import Students from "./components/students";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   state = {};
+
+  componentDidMount() {
+    const user = auth.getCurrentUser();
+    this.setState({ user });
+  }
   render() {
     return (
       <>
-        <NavBar />
-        <main className="container">
+        <ToastContainer />
+        <UserContext.Provider value={this.state.user}>
+          <NavBar />
           <Switch>
-            <Route path="/students" component={Students}></Route>
-            <Route path="/" component={Home}></Route>
-          </Switch>
+            <Route
+              path="/me"
+              render={(props) => {
+                if (!this.state.user) return <Redirect to="/login" />;
+                return <Dashboard {...props} />;
+              }}
+            />
+            <Route path="/logout" component={Logout} />
 
-          <Footer />
-        </main>
+            <Route path="/" component={Home} />
+          </Switch>
+        </UserContext.Provider>
       </>
     );
   }

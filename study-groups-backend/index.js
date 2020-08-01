@@ -1,36 +1,42 @@
-const Joi = require("@hapi/joi");
+const config = require("config");
+const mongoose = require("mongoose");
+const cors = require("cors");
 const express = require("express");
 const app = express();
 
-const students = [
-  { id: 1, name: "Prince" },
-  { id: 2, name: "Pratik" },
-  { id: 3, name: "Rico" },
-];
+const faculties = require("./routes/faculties");
+const courses = require("./routes/courses");
+const students = require("./routes/students");
+const users = require("./routes/users");
+const auth = require("./routes/auth");
+
+if (!config.get("jwtPrivateKey")) {
+  console.error("FATAL ERROR. Private Key is not defined");
+  process.exit(1);
+}
+
+mongoose
+  .connect("mongodb://localhost/study_groups", {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.log("Could not connect to database.", error));
+
+app.use(express.json());
+app.use(cors());
+
+app.use("/api/students", students);
+app.use("/api/faculties", faculties);
+app.use("/api/courses", courses);
+app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 app.get("/", (req, res) => {
   res.send("Hello");
 });
 
-app.get("/api/students", (req, res) => {
-  res.send(students);
-});
-
-app.get("/api/students/:id", (req, res) => {
-  const student = students.find(
-    (student) => student.id === parseInt(req.params.id)
-  );
-  if (!student) return res.status(404).send("Student does not exist");
-  res.send(student);
-});
-
-app.post("/api/students", (req, res) => {
-  const schema = Joi.object({
-    name: Joi.string().required(),
-  });
-  const result = schema.validate(req.body);
-
-  res.send(result);
-});
-
-app.listen(3000, () => console.log("Listening on port 3000"));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on port ${port}`));
