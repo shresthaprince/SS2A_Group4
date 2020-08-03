@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserContext from "./context/userContext";
 import "../styles/slide_left.css";
 
-class Page4 extends Component {
+class Page5 extends Component {
   state = {};
   render() {
     return (
@@ -13,7 +13,7 @@ class Page4 extends Component {
             className="slide-left col-md-9 ml-sm-auto col-lg-10 px-md-4 "
           >
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h1 className="h2">Tools</h1>
+              <h1 className="h2">My Group</h1>
               <div className="btn-toolbar mb-2 mb-md-0">
                 <div className="btn-group mr-2">
                   <button
@@ -31,13 +31,7 @@ class Page4 extends Component {
                 </div>
               </div>
             </div>
-            <div>Select your Tools {user.name}</div>
-            <button
-              className="btn btn-lg btn-primary btn-block"
-              onClick={this.submitHandler}
-            >
-              Submit Preferences
-            </button>
+            <div>Showing My group {user.name}</div>
           </main>
         )}
       </UserContext.Consumer>
@@ -45,4 +39,4 @@ class Page4 extends Component {
   }
 }
 
-export default Page4;
+export default Page5;

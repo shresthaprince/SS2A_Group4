@@ -19,19 +19,25 @@ function Sidebar() {
           <li className="nav-item">
             <NavLink className="nav-link" to="/me/page2">
               <span data-feather="file"></span>
-              Page2
+              Interests
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/me/page3">
               <span data-feather="shopping-cart"></span>
-              Page3
+              Skills
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/me/page4">
               <span data-feather="users"></span>
-              Page4
+              Tools
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/me/page5">
+              <span data-feather="users"></span>
+              My Group
             </NavLink>
           </li>
         </ul>

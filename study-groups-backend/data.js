@@ -48,7 +48,6 @@ async function seed() {
     }));
     await Course.insertMany(courses);
   }
-
   mongoose.disconnect();
 
   console.info("Done!");

@@ -31,8 +31,9 @@ class MyDetails extends Component {
               </div>
             </div>
             <div>
-              Name: {user.name}, Email: {user.email}
+              ID: {user.name}, Email: {user.email}
             </div>
+            
           </main>
         )}
       </UserContext.Consumer>
