@@ -17,25 +17,25 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/me/page2">
+            <NavLink className="nav-link" to="/me/interests">
               <span data-feather="file"></span>
               Interests
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/me/page3">
+            <NavLink className="nav-link" to="/me/skills">
               <span data-feather="shopping-cart"></span>
               Skills
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/me/page4">
+            <NavLink className="nav-link" to="/me/tools">
               <span data-feather="users"></span>
               Tools
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/me/page5">
+            <NavLink className="nav-link" to="/me/mygroup">
               <span data-feather="users"></span>
               My Group
             </NavLink>

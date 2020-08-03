@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Sidebar from "./sidebar";
 import MyDetails from "./myDetails";
-import Page2 from "./page2";
-import Page3 from "./page3";
-import Page4 from "./page4";
-
+import Interests from "./interests";
+import Skills from "./skills";
+import Tools from "./tools";
+import Mygroup from "./mygroup";
 class Dashboard extends Component {
   render() {
     return (
@@ -13,9 +13,10 @@ class Dashboard extends Component {
         <div className="row">
           <Sidebar />
           <Switch>
-            <Route path="/me/page2" component={Page2} />
-            <Route path="/me/page3" component={Page3} />
-            <Route path="/me/page4" component={Page4} />
+            <Route path="/me/interests" component={Interests} />
+            <Route path="/me/skills" component={Skills} />
+            <Route path="/me/tools" component={Tools} />
+            <Route path="/me/mygroup" component={Mygroup} />
             <Route path="/me" component={MyDetails} />
           </Switch>
         </div>

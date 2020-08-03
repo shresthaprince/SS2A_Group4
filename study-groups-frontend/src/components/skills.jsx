@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserContext from "./context/userContext";
 import "../styles/slide_left.css";
 
-class Page2 extends Component {
+class Skills extends Component {
   state = {};
   render() {
     return (
@@ -13,7 +13,7 @@ class Page2 extends Component {
             className="slide-left col-md-9 ml-sm-auto col-lg-10 px-md-4 "
           >
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h1 className="h2">Interests</h1>
+              <h1 className="h2">Skills</h1>
               <div className="btn-toolbar mb-2 mb-md-0">
                 <div className="btn-group mr-2">
                   <button
@@ -31,12 +31,7 @@ class Page2 extends Component {
                 </div>
               </div>
             </div>
-            <div>Select your Interests {user.name}</div>
-            <div className="checkbox mb-3">
-              <label>
-                <input type="checkbox" value="" /> Interest 1
-              </label>
-            </div>
+            <div>Select your Skills {user.name}</div>
           </main>
         )}
       </UserContext.Consumer>
@@ -44,4 +39,4 @@ class Page2 extends Component {
   }
 }
 
-export default Page2;
+export default Skills;
