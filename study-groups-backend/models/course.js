@@ -18,4 +18,5 @@ function validateCourse(course) {
 }
 
 exports.validateCourse = validateCourse;
+exports.courseSchema = courseSchema;
 exports.Course = Course;

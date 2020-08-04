@@ -1,68 +1,63 @@
 const express = require("express");
+const { Course } = require("../models/course");
+const { Topic } = require("../models/topic");
 const router = express.Router();
-const Joi = require("Joi");
+const { Student, validateStudent } = require("../models/student");
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
+const { Faculty } = require("../models/faculty");
 
-const students = [
-  { id: 1, name: "Prince" },
-  { id: 2, name: "Pratik" },
-  { id: 3, name: "Rico" },
-];
-
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+  const students = await Student.find();
   res.send(students);
 });
 
-router.get("/:id", (req, res) => {
-  const student = students.find(
-    (student) => student.id === parseInt(req.params.id)
-  );
+router.get("/:id", async (req, res) => {
+  const student = await Student.findById(req.params.id);
   if (!student) return res.status(404).send("Student does not exist");
+
   res.send(student);
 });
 
-router.post("/", (req, res) => {
-  const { error } = validate(req.body);
-
+router.post("/", [auth, admin], async (req, res) => {
+  const { error } = validateStudent(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const student = {
-    id: students.length + 1,
-    name: req.body.name,
-  };
-  students.push(student);
-  res.send(student);
-});
-
-router.put("/:id", (req, res) => {
-  const student = students.find(
-    (student) => student.id === parseInt(req.params.id)
-  );
-  if (!student) return res.status(404).send("Student does not exist");
-
-  const { error } = validate(student);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  student.name = req.body.name;
-  res.send(student);
-});
-
-router.delete("/:id", (req, res) => {
-  const student = students.find(
-    (student) => student.id === parseInt(req.params.id)
-  );
-  if (!student) return res.status(404).send("Student does not exist");
-
-  const index = students.indexOf(student);
-  students.splice(index, 1);
-
-  res.send(student);
-});
-
-function validate(student) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
+  let student = new Student({
+    userId: req.body.userId,
+    faculty: await Faculty.findById(req.body.facultyId),
+    courses: await Course.find({ _id: { $in: req.body.courseIds } }),
+    topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
   });
-  return schema.validate(student);
-}
+  student = await student.save();
+
+  res.send(student);
+});
+
+router.put("/:id", [auth, admin], async (req, res) => {
+  const { error } = validateStudent(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const student = await Student.findByIdAndUpdate(
+    req.params.id,
+    {
+      userId: req.body.userId,
+      faculty: await Faculty.findById(req.body.facultyId),
+      courses: await Course.find({ _id: { $in: req.body.courseIds } }),
+      topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
+    },
+    { new: true }
+  );
+  if (!student) return res.status(404).send("Student does not exist");
+
+  res.send(student);
+});
+
+router.delete("/:id", [auth, admin], async (req, res) => {
+  const student = await Student.findByIdAndRemove(req.params.id);
+  if (!student) return res.status(404).send("student does not exist");
+
+  res.send(student);
+});
 
 module.exports = router;

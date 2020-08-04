@@ -6,17 +6,20 @@ const app = express();
 
 const faculties = require("./routes/faculties");
 const courses = require("./routes/courses");
-const students = require("./routes/students");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
+const topics = require("./routes/topics");
+const students = require("./routes/students");
+const groups = require("./routes/groups");
 
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR. Private Key is not defined");
   process.exit(1);
 }
 
+const db = config.get("db");
 mongoose
-  .connect("mongodb://localhost/study_groups", {
+  .connect(db, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -28,11 +31,13 @@ mongoose
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/students", students);
 app.use("/api/faculties", faculties);
 app.use("/api/courses", courses);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
+app.use("/api/topics", topics);
+app.use("/api/students", students);
+app.use("/api/groups", groups);
 
 app.get("/", (req, res) => {
   res.send("Hello");
