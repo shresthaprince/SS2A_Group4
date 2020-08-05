@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getCourses } from "./../services/courseService";
 import { trackPromise } from "react-promise-tracker";
 import Loading from "./utils/loading";
+import "../styles/slide_left.css";
 
 class Courses extends Component {
   state = {
@@ -13,7 +14,7 @@ class Courses extends Component {
   }
   render() {
     return (
-      <div className="login-body text-center">
+      <div className="fix-table">
         <table className="table">
           <thead className="thead-dark">
             <tr>

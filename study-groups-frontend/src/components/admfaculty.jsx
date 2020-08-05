@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getFaculties } from "./../services/facultyService";
 import { trackPromise } from "react-promise-tracker";
 import Loading from "./utils/loading";
-
+import "../styles/slide_left.css";
 class Facultys extends Component {
   state = {
     faculties: [],
@@ -13,7 +13,8 @@ class Facultys extends Component {
   }
   render() {
     return (
-      <div className="login-body text-center">
+      
+      <div className="fix-table">
         <table className="table">
           <thead className="thead-dark">
             <tr>
