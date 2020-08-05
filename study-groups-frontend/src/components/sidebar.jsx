@@ -16,29 +16,36 @@ function Sidebar() {
               My Details <span className="sr-only">(current)</span>
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/me/interests">
-              <span data-feather="file"></span>
-              Interests
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/me/skills">
-              <span data-feather="shopping-cart"></span>
-              Skills
-            </NavLink>
-          </li>
-          <li className="nav-item">
+           <li className="nav-item">
             <NavLink className="nav-link" to="/me/tools">
               <span data-feather="users"></span>
-              Tools
+              Topic
+            </NavLink>
+          </li> 
+              <li className="nav-item">
+            <NavLink className="nav-link" to="/me/mygroup">
+              <span data-feather="users"></span>
+              My Group
+            </NavLink>
+          </li>   
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/me/admfaculty">
+              <span data-feather="users"></span>
+              Faculty
+            </NavLink>
+            <li className="nav-item">
+            <NavLink className="nav-link" to="/me/admcurses">
+              <span data-feather="users"></span>
+              Curses
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/me/mygroup">
               <span data-feather="users"></span>
-              My Group
+              Topics
             </NavLink>
+          </li>
+      
           </li>
         </ul>
       </div>

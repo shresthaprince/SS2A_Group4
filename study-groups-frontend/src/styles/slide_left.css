@@ -10,3 +10,7 @@
         transform: translateX(0%);
     }
 }
+.form-preferences{
+    width: 450px;
+    margin:auto;
+}

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import UserContext from "./context/userContext";
 import "../styles/slide_left.css";
 
+
 class Tools extends Component {
-  state = {};
   render() {
     return (
       <UserContext.Consumer>
@@ -13,7 +13,7 @@ class Tools extends Component {
             className="slide-left col-md-9 ml-sm-auto col-lg-10 px-md-4 "
           >
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h1 className="h2">Tools</h1>
+              <h1 className="h2">My Details</h1>
               <div className="btn-toolbar mb-2 mb-md-0">
                 <div className="btn-group mr-2">
                   <button
@@ -31,13 +31,36 @@ class Tools extends Component {
                 </div>
               </div>
             </div>
-            <div>Select your Tools {user.name}</div>
-            <button
-              className="btn btn-lg btn-primary btn-block"
-              onClick={this.submitHandler}
-            >
-              Submit Preferences
-            </button>
+           
+            <div class="form-preferences" > <div  className="form-group">
+              ID: {user.name} <div>Email: {user.email}</div>
+            </div>
+    <form action="" class="form-preferences">
+      <div className="form-group">
+        <h5>Select your favourite topic</h5>
+        <select name="topic" id="topic" className="form-control">
+          <option value="1">T1</option>
+          <option value="2">T2</option>
+          <option value="3">T3</option>
+          <option value="4">T4</option>
+          <option value="5">T5</option>
+        </select>
+      </div> 
+    <li>
+
+    </li>
+    <li>
+      
+      </li>
+      <li>
+      
+      </li>
+    
+    </form>
+    
+</div>
+
+            
           </main>
         )}
       </UserContext.Consumer>
