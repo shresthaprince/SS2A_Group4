@@ -37,7 +37,7 @@ class MyDetails extends Component {
             </div>
     <form action="" class="form-preferences">
       <div className="form-group">
-        <h5>Select the Faculty you are in</h5>
+        <h5>Faculty</h5>
         <select name="faculty" id="faculty" className="form-control">
           <option value="1">F1</option>
           <option value="2">F2</option>
