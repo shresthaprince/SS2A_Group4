@@ -11,6 +11,7 @@ class Facultys extends Component {
     const { data: faculties } = await trackPromise(getFaculties());
     this.setState({ faculties });
   }
+  
   render() {
     return (
       

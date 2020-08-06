@@ -1,10 +1,23 @@
 import React, { Component } from "react";
 import UserContext from "./context/userContext";
 import "../styles/slide_left.css";
-
+import { getFaculties } from "./../services/facultyService";
+import { trackPromise } from "react-promise-tracker";
+import { getCourses } from "../services/courseService";
 
 class MyDetails extends Component {
+  state = {
+    faculties: [],   courses: [],
+  };
+  async componentDidMount() {
+    const { data: faculties  } = await trackPromise(getFaculties() , getCourses());
+    const {data: courses} = await trackPromise(getCourses())
+    this.setState({ faculties , courses});
+  }
+  
+  
   render() {
+    
     return (
       <UserContext.Consumer>
         {(user) => (
@@ -39,53 +52,57 @@ class MyDetails extends Component {
       <div className="form-group">
         <h5>Faculty</h5>
         <select name="faculty" id="faculty" className="form-control">
-          <option value="1">F1</option>
-          <option value="2">F2</option>
-          <option value="3">F3</option>
-          <option value="4">F4</option>
-          <option value="5">F5</option>
+ 
+          {this.state.faculties.map(faculty=><option>{faculty.title}</option>)}
         </select>
       </div> 
       <h5>Check the curses you are in</h5>
       <div class="row">
         <div class="col">
         <div class="custom-control custom-checkbox mr-sm-2">
-       
-       <input type="checkbox" class="custom-control-input" id="curses1"></input>
-       <label class="custom-control-label" for="curses1">C1</label>
+      
+       <input type="checkbox" class="custom-control-input" id="curses1" ></input>
+        {this.state.courses.map(course=><label class="custom-control-label" for="curses1">{course._5f277efd7a8d682060fbaf7c}</label>)}
+        <label class="custom-control-label" for="curses1">Civil Engineering</label>
        </div>
         </div>
         <div class="col">
         <div class="custom-control custom-checkbox mr-sm-2">
        
        <input type="checkbox" class="custom-control-input" id="curses2"></input>
-       <label class="custom-control-label" for="curses2">C2</label>
+       {this.state.courses.map(course=><label class="custom-control-label" for="curses2">{course._5f277efd7a8d682060fbaf7a}</label>)}
+       <label class="custom-control-label" for="curses2">Software Engineering</label>
        </div>
 
         </div>
+
         <div class="col">
           <div class="custom-control custom-checkbox mr-sm-2">
       <input type="checkbox" class="custom-control-input" id="curses3"></input>
-      <label class="custom-control-label" for="curses3">C3</label>
+      {this.state.courses.map(course=><label class="custom-control-label" for="curses3">{course._5f277efd7a8d682060fbaf81}</label>)}
+      <label class="custom-control-label" for="curses3">Accounting</label>
       </div>
         </div>
 
       </div>
+      <div class="mt-md-3"></div>
       <div class="row">
         <div class="col">
         <div class="custom-control custom-checkbox mr-sm-2">
-       
+
        <input type="checkbox" class="custom-control-input" id="curses4"></input>
-       <label class="custom-control-label" for="curses5">C4</label>
+       {this.state.courses.map(course=><label class="custom-control-label" for="curses4">{course._5f277efd7a8d682060fbaf86}</label>)}
+       <label class="custom-control-label" for="curses4">Architecture</label>
        </div>
         </div>
         <div class="col">
         <div class="custom-control custom-checkbox mr-sm-2">
        
        <input type="checkbox" class="custom-control-input" id="curses5"></input>
-       <label class="custom-control-label" for="curses5">C5</label>
+       {this.state.courses.map(course=><label class="custom-control-label" for="curses5">{course._5f277efd7a8d682060fbaf8b}</label>)}
+       <label class="custom-control-label" for="curses5">Biomedical Science</label>
        </div>
-
+    
         </div>
         <div class="col">
           <div class="custom-control custom-checkbox mr-sm-2">
