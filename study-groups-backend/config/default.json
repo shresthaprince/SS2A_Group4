@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey": ""
+  "jwtPrivateKey": "",
+  "db": "mongodb+srv://study_groups_user:1234@study-groups-clusters.xwldr.mongodb.net/study_groups"
 }

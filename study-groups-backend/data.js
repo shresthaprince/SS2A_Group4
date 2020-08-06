@@ -1,6 +1,7 @@
 const { Faculty } = require("./models/faculty");
 const { Course } = require("./models/course");
 const mongoose = require("mongoose");
+const config = require("config");
 
 const data = [
   {
@@ -30,7 +31,7 @@ const data = [
 ];
 
 async function seed() {
-  await mongoose.connect("mongodb://localhost/study_groups", {
+  await mongoose.connect(config.get("db"), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
