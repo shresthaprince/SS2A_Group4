@@ -6,6 +6,7 @@ const { Student, validateStudent } = require("../models/student");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const { Faculty } = require("../models/faculty");
+const { addStudentData, User } = require("../models/user");
 
 router.get("/", async (req, res) => {
   const students = await Student.find();
@@ -25,11 +26,17 @@ router.post("/", [auth, admin], async (req, res) => {
 
   let student = new Student({
     userId: req.body.userId,
+    name: (await User.findById(req.body.userId)).name,
     faculty: await Faculty.findById(req.body.facultyId),
-    courses: await Course.find({ _id: { $in: req.body.courseIds } }),
-    topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
+    course: await Course.findById(req.body.courseId),
+    topic: (await Topic.findById(req.body.topicId)).title,
+    skills: req.body.skills,
+    tools: req.body.tools,
+    //topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
   });
   student = await student.save();
+
+  await addStudentData(student);
 
   res.send(student);
 });
@@ -43,8 +50,11 @@ router.put("/:id", [auth, admin], async (req, res) => {
     {
       userId: req.body.userId,
       faculty: await Faculty.findById(req.body.facultyId),
-      courses: await Course.find({ _id: { $in: req.body.courseIds } }),
-      topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
+      course: await Course.findById(req.body.courseId),
+      topic: await Topic.findById(req.body.topicId),
+      skills: req.body.skills,
+      tools: req.body.tools,
+      //topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
     },
     { new: true }
   );

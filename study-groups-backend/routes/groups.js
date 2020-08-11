@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const _ = require("lodash");
+
 const { Group, validateGroup } = require("../models/group");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -25,7 +27,8 @@ router.post("/", [auth, admin], async (req, res) => {
 
   let group = new Group({
     number: groups.length + 1,
-    name: req.body.name,
+    name: `Group ${groups.length + 1}`,
+    topic: req.body.topic,
     students:
       req.body.studentIds &&
       (await Student.find({ _id: { $in: req.body.studentIds } })),
@@ -34,6 +37,29 @@ router.post("/", [auth, admin], async (req, res) => {
   group = await group.save();
 
   res.send(group);
+});
+
+router.post("/new", [auth, admin], async (req, res) => {
+  await Group.deleteMany({});
+  const students = await Student.find();
+
+  const groups = _.groupBy(students, "topic");
+  Object.keys(groups).forEach(async (topic) => {
+    const group = groups[topic];
+    const studentIds = group.map((student) => student._id);
+
+    const currentGroup = await Group.find();
+    let newGroup = new Group({
+      number: currentGroup.length + 1,
+      name: `Group #${currentGroup.length + 1}`,
+      topic,
+      students: await Student.find({ _id: { $in: studentIds } }),
+      settings: { maxNumber: 4 },
+    });
+    newGroup = await newGroup.save();
+  });
+
+  res.send("Done");
 });
 
 router.put("/:id", auth, async (req, res) => {
@@ -55,6 +81,12 @@ router.put("/:id", auth, async (req, res) => {
   if (!group) return res.status(404).send("group does not exist");
 
   res.send(group);
+});
+
+router.delete("/", [auth, admin], async (req, res) => {
+  await Group.deleteMany({});
+
+  res.send("Deleted");
 });
 
 router.delete("/:id", auth, async (req, res) => {

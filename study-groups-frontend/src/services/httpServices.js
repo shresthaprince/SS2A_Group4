@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 Axios.interceptors.response.use(
   async (response) => {
-    const minimumDelay = 1000;
+    const minimumDelay = 500;
     const [responseWithDelay] = await Promise.all([
       response,
       new Promise((resolve) => setTimeout(resolve, minimumDelay)),

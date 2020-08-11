@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { join } = require("lodash");
+const { studentSchema } = require("./student");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   password: { type: String, required: true, minlength: 5, maxlength: 1024 },
   isAdmin: { type: Boolean },
+  student: { type: studentSchema },
 });
 
 userSchema.methods.generateAuthToken = function () {
@@ -37,6 +38,17 @@ userSchema.methods.generateAuthToken = function () {
 
 const User = mongoose.model("Users", userSchema);
 
+async function addStudentData(student) {
+  await User.update(
+    { _id: student.userId },
+    {
+      $set: {
+        student: student,
+      },
+    }
+  );
+}
+
 function validateUser(user) {
   const schema = Joi.object({
     name: Joi.string().min(5).max(512).required(),
@@ -50,3 +62,4 @@ function validateUser(user) {
 exports.validateUser = validateUser;
 exports.userSchema = userSchema;
 exports.User = User;
+exports.addStudentData = addStudentData;
