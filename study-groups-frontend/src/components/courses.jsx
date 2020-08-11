@@ -20,6 +20,7 @@ class Courses extends Component {
               <th scope="col">#</th>
               <th scope="col">Course</th>
               <th scope="col">Offered By</th>
+              <th scope="col"><button type="button" class="btn btn-light">Add</button></th>
             </tr>
           </thead>
           <tbody>
@@ -28,6 +29,7 @@ class Courses extends Component {
                 <th scope="row">{index + 1}</th>
                 <td>{course.title}</td>
                 <td>{course.faculty.title}</td>
+                <td><button type="button" class="btn btn-light">X</button></td>
               </tr>
             ))}
           </tbody>

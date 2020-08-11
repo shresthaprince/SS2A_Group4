@@ -6,12 +6,14 @@ import Login from "./login";
 import NotFound from "./notFound";
 import Courses from "./courses";
 import Footer from "./footer";
+import Facultys from "./admfaculty";
 
 const Home = () => {
   return (
     <main className="container">
       <HomeTop />
       <Switch>
+        <Route path="/admfaculty" component={Facultys}></Route>
         <Route path="/courses" component={Courses}></Route>
         <Route path="/login" component={Login}></Route>
         <Route exact path="/" component={HomeView}></Route>

@@ -21,7 +21,7 @@ class Facultys extends Component {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Facultys</th>
-            
+              <th scope="col"><button type="button" class="btn btn-light">Add</button></th>
             </tr>
           </thead>
           <tbody>
@@ -29,6 +29,7 @@ class Facultys extends Component {
               <tr key={faculty._id}>
                 <th scope="row">{index + 1}</th>
                 <td>{faculty.title}</td>
+                <td><button type="button" class="btn btn-light">X</button></td>
               </tr>
             ))}
           </tbody>
