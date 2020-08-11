@@ -19,7 +19,7 @@ const NavBar = () => {
             )}
           </h5>
           <nav className="my-2 my-md-0 mr-md-3">
-            <NavLink className="p-2 text dark" to="/admfaculty">
+            <NavLink className="p-2 text-dark" to="/admfaculty">
               Facultys
             </NavLink>
             <NavLink className="p-2 text-dark" to="/courses">
@@ -31,13 +31,16 @@ const NavBar = () => {
             <NavLink className="p-2 text-dark" to="/">
               Support
             </NavLink>
+            <NavLink className="btn btn-success" to="/signup">
+              Signup
+            </NavLink>
           </nav>
           {user ? (
             <NavLink className="btn btn-outline-primary" to="/logout">
               Logout
             </NavLink>
           ) : (
-            <NavLink className="btn btn-outline-primary" to="/login">
+            <NavLink className="btn btn-warning" to="/login">
               Login
             </NavLink>
           )}

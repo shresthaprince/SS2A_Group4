@@ -7,12 +7,16 @@ import NotFound from "./notFound";
 import Courses from "./courses";
 import Footer from "./footer";
 import Facultys from "./admfaculty";
+import Signup from "./signup";
+import Test from "./testpage";
 
 const Home = () => {
   return (
     <main className="container">
-      <HomeTop />
+      
       <Switch>
+      <Route path="/testpage" component={Test}></Route>
+      <Route path="/signup" component={Signup}></Route>
         <Route path="/admfaculty" component={Facultys}></Route>
         <Route path="/courses" component={Courses}></Route>
         <Route path="/login" component={Login}></Route>

@@ -42,7 +42,7 @@ class Login extends Component {
         {!this.state.logging && (
           <form className="form-sign-in">
             <img className="mb-4" src={Logo} alt="" width="72" height="115" />
-            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <h1 className="h3 mb-3 font-weight-normal">Login Here</h1>
             <label htmlFor="inputEmail" className="sr-only">
               Email address
             </label>

@@ -12,6 +12,8 @@ import admtopics from "./admtopics";
 import Courses from "./courses";
 import Facultys from "./admfaculty";
 import Groups from "./groups";
+import Signup from "./signup";
+import Test from "./testpage";
 
 
 class Dashboard extends Component {
@@ -21,6 +23,8 @@ class Dashboard extends Component {
         <div className="row">
           <Sidebar />
           <Switch>
+            <Route path="/me/testpage" component={Test}/>
+            <Route path="/me/signup" component={Signup} />
             <Route path="/me/interests" component={Interests} />
             <Route path="/me/admcurses" component={Courses} />
             <Route path="/me/admfaculty" component={Facultys} />
