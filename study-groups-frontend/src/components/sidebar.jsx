@@ -16,10 +16,10 @@ function Sidebar() {
               My Details <span className="sr-only">(current)</span>
             </NavLink>
           </li>
-           <li className="nav-item">
-            <NavLink className="nav-link" to="/me/tools">
-              <span data-feather="users"></span>
-              Topic
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/me/groups">
+              <span data-feather="file"></span>
+              Groups
             </NavLink>
           </li> 
               <li className="nav-item">

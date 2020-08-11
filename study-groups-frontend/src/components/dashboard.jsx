@@ -11,6 +11,8 @@ import admfaculty from "./admfaculty";
 import admtopics from "./admtopics";
 import Courses from "./courses";
 import Facultys from "./admfaculty";
+import Groups from "./groups";
+
 
 class Dashboard extends Component {
   render() {
@@ -26,6 +28,9 @@ class Dashboard extends Component {
             <Route path="/me/skills" component={Skills} />
             <Route path="/me/tools" component={Tools} />
             <Route path="/me/mygroup" component={Mygroup} />
+            <Route path="/me/groups" component={Groups} />
+           
+           
             <Route path="/me" component={MyDetails} />
           </Switch>
         </div>
