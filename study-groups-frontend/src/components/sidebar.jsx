@@ -17,6 +17,12 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className="nav-item">
+            <NavLink className="nav-link" to="/me/tools">
+              <span data-feather="users"></span>
+              Topics
+            </NavLink>
+          </li>
+          <li className="nav-item">
             <NavLink className="nav-link" to="/me/groups">
               <span data-feather="file"></span>
               Groups
@@ -28,25 +34,7 @@ function Sidebar() {
               My Group
             </NavLink>
           </li>   
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/me/admfaculty">
-              <span data-feather="users"></span>
-              Faculty
-            </NavLink>
-            <li className="nav-item">
-            <NavLink className="nav-link" to="/me/admcurses">
-              <span data-feather="users"></span>
-              Curses
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/me/mygroup">
-              <span data-feather="users"></span>
-              Topics
-            </NavLink>
-          </li>
       
-          </li>
         </ul>
       </div>
     </nav>
