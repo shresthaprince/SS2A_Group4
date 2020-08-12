@@ -1,13 +1,15 @@
 import http from "./httpServices";
 
+const apiEndpoint = "/groups";
+
 export function getGroups() {
-  return http.get("http://localhost:3000/api/groups");
+  return http.get(apiEndpoint);
 }
 
 export function createGroups() {
-  return http.post("http://localhost:3000/api/groups/new");
+  return http.post(`${apiEndpoint}/new`);
 }
 
 export function resetGroups() {
-  return http.delete("http://localhost:3000/api/groups");
+  return http.delete(apiEndpoint);
 }

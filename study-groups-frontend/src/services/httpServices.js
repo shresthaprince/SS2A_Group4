@@ -1,6 +1,8 @@
 import Axios from "axios";
 import { toast } from "react-toastify";
 
+Axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 Axios.interceptors.response.use(
   async (response) => {
     const minimumDelay = 500;

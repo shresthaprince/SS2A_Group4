@@ -1,5 +1,7 @@
 import http from "./httpServices";
 
+const apiEndpoint = "/faculties";
+
 export function getFaculties() {
-  return http.get("http://localhost:3000/api/faculties");
+  return http.get(apiEndpoint);
 }

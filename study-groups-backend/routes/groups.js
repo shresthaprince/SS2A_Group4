@@ -106,7 +106,6 @@ function groupBySkills(groups) {
   let result = {};
   Object.keys(groups).forEach((topic) => {
     let helper = {};
-    let i = 0;
     const group = groups[topic];
 
     result = group.reduce((result, student) => {
@@ -117,10 +116,12 @@ function groupBySkills(groups) {
         result[topic].push(student);
         helper[key] = [];
       } else if (helper[key]) {
-        let newKey = topic + "-" + ++i;
-        result[newKey] = [];
-        result[newKey].push(student);
+        if (!result[key]) {
+          result[key] = [];
+          result[key].push(student);
+        }
       } else {
+        helper[key] = [];
         result[topic].push(student);
       }
 

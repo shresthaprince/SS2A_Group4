@@ -31,6 +31,8 @@ mongoose
 app.use(express.json());
 app.use(cors());
 
+require("./startup/prod")(app);
+
 app.use("/api/faculties", faculties);
 app.use("/api/courses", courses);
 app.use("/api/users", users);
