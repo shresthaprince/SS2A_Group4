@@ -86,10 +86,14 @@ class Groups extends Component {
                 Groups are not assigned!
               </div>
             )}
-            <div className="table-responsive d-flex justify-content-center">
+            <div className="table-responsive d-flex flex-wrap justify-content-center">
               {groups && groups.length
                 ? groups.map((group) => (
-                    <div className="login-body w-50 m-3" key={group._id}>
+                    <div
+                      className="login-body m-2"
+                      style={{ width: "48%" }}
+                      key={group._id}
+                    >
                       <div className="alert alert-info" role="alert">
                         <h5 style={{ display: "inline" }}>
                           <span className="badge badge-pill badge-light">
@@ -127,6 +131,7 @@ class Groups extends Component {
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Students</th>
+                          <th scope="col">Preferred Topic</th>
                           <th scope="col">Skills</th>
                           <th scope="col">Tools</th>
                         </tr>
@@ -136,6 +141,7 @@ class Groups extends Component {
                           <tr key={student._id}>
                             <th scope="row">{index + 1}</th>
                             <td>{student.name}</td>
+                            <td>{student.topic}</td>
                             <td>{student.skills}</td>
                             <td>{student.tools}</td>
                           </tr>
