@@ -14,6 +14,7 @@ import Facultys from "./admfaculty";
 import Groups from "./groups";
 import Signup from "./signup";
 import Test from "./testpage";
+import Manualgroup from "./manualGroup";
 
 
 class Dashboard extends Component {
@@ -33,6 +34,7 @@ class Dashboard extends Component {
             <Route path="/me/tools" component={Tools} />
             <Route path="/me/mygroup" component={Mygroup} />
             <Route path="/me/groups" component={Groups} />
+            <Route path="/me/manualgroup" component={Manualgroup} />
            
            
             <Route path="/me" component={MyDetails} />

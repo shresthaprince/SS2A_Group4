@@ -28,6 +28,12 @@ function Sidebar() {
               Groups
             </NavLink>
           </li> 
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/me/manualgroup">
+              <span data-feather="file"></span>
+              ManualGroup
+            </NavLink>
+          </li> 
               <li className="nav-item">
             <NavLink className="nav-link" to="/me/mygroup">
               <span data-feather="users"></span>
