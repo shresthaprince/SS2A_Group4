@@ -31,13 +31,19 @@ function Sidebar() {
           <li className="nav-item">
             <NavLink className="nav-link" to="/me/manualgroup">
               <span data-feather="file"></span>
-              ManualGroup
+              Manual Group
             </NavLink>
           </li> 
               <li className="nav-item">
             <NavLink className="nav-link" to="/me/mygroup">
               <span data-feather="users"></span>
               My Group
+            </NavLink>
+          </li>   
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/me/multipage">
+              <span data-feather="users"></span>
+              Multi
             </NavLink>
           </li>   
       
