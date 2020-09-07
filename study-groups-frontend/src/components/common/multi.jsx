@@ -8,10 +8,14 @@ class MultiSe extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       items: [
-        { id: 0, label: "Prince" },
-        { id: 1, label: "Rico" },
-        { id: 2, label: "Pratik" },
-        { id: 3, label: "Ashish" }
+        { id: 0, label: "Prince-G1" , group: "group 1" },
+        { id: 1, label: "Rico-G1" , group: "group 1" },
+        { id: 2, label: "Pratik-G1" , group: "group 1"},
+        { id: 3, label: "Ashish-G1", group: "group 1" },
+        { id: 4, label: "Prince-G2" , group: "group 2" },
+        { id: 5, label: "Rico-G2" , group: "group 2" },
+        { id: 6, label: "Pratik-G2" , group: "group 2"},
+        { id: 7, label: "Ashish-G2", group: "group 2" }
       ],
       selectedItems: []
     };
@@ -24,10 +28,13 @@ class MultiSe extends Component {
     const { items, selectedItems } = this.state;
     return (
       <MultiSelect
-        items={items}
+      items={items}
+      withGrouping
         selectedItems={selectedItems}
         onChange={this.handleChange}
       />
+      
+      
     );
   }
   
