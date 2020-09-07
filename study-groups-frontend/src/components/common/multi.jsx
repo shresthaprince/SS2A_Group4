@@ -8,14 +8,14 @@ class MultiSe extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       items: [
-        { id: 0, label: "Prince-G1" , group: "group 1" },
-        { id: 1, label: "Rico-G1" , group: "group 1" },
-        { id: 2, label: "Pratik-G1" , group: "group 1"},
-        { id: 3, label: "Ashish-G1", group: "group 1" },
-        { id: 4, label: "Prince-G2" , group: "group 2" },
-        { id: 5, label: "Rico-G2" , group: "group 2" },
-        { id: 6, label: "Pratik-G2" , group: "group 2"},
-        { id: 7, label: "Ashish-G2", group: "group 2" }
+        { id: 0, label: "Prince" , group: "Group 1" },
+        { id: 1, label: "Rico" , group: "Group 1" },
+        { id: 2, label: "Pratik" , group: "Group 1"},
+        { id: 3, label: "Ashish", group: "Group 1" },
+        { id: 4, label: "Prince" , group: "Group 2" },
+        { id: 5, label: "Rico" , group: "Group 2" },
+        { id: 6, label: "Pratik" , group: "Group 2"},
+        { id: 7, label: "Ashish", group: "Group 2" }
       ],
       selectedItems: []
     };
