@@ -40,12 +40,7 @@ function Sidebar() {
               My Group
             </NavLink>
           </li>   
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/me/multipage">
-              <span data-feather="users"></span>
-              Multi
-            </NavLink>
-          </li>   
+           
       
         </ul>
       </div>
