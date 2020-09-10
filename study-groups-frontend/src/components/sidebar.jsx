@@ -6,7 +6,7 @@ function Sidebar() {
     <nav
       id="sidebarMenu"
       className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-      style={{ height: "90vh" }}
+      style={{ minHeight: "90vh" }}
     >
       <div className="sidebar-sticky pt-3">
         <ul className="nav flex-column">
@@ -17,9 +17,9 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/me/tools">
-              <span data-feather="users"></span>
-              Topics
+            <NavLink className="nav-link" to="/me/class">
+              <span data-feather="shopping-cart"></span>
+              Class
             </NavLink>
           </li>
           <li className="nav-item">

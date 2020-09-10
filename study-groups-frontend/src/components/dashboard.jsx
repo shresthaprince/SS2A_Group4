@@ -17,6 +17,9 @@ import Test from "./testpage";
 import Manualgroup from "./manualGroup";
 import Multi from "./multipage";
 
+import Groups from "./groups";
+import Class from "./class";
+import Page4 from "./page4";
 
 class Dashboard extends Component {
   render() {
@@ -39,6 +42,9 @@ class Dashboard extends Component {
             <Route path="/me/multipage" component={Multi} />
            
            
+            <Route path="/me/groups" component={Groups} />
+            <Route path="/me/class" component={Class} />
+            <Route path="/me/page4" component={Page4} />
             <Route path="/me" component={MyDetails} />
           </Switch>
         </div>

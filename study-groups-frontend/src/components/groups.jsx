@@ -1,36 +1,116 @@
 import React, { Component } from "react";
 import UserContext from "./context/userContext";
+
 import "../styles/slide_left.css";
-import {
-  getGroups,
-  createGroups,
-  resetGroups,
-} from "./../services/groupService";
 import { trackPromise } from "react-promise-tracker";
 import Loading from "./utils/loading";
-import { getStudents } from "./../services/studentService";
+import _ from "lodash";
+import { Multiselect } from "multiselect-react-dropdown";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+
+import { getStudents, updateAllocation } from "./../services/studentService";
+import { getTopics } from "./../services/topicService";
+import {
+  getGroups,
+  createGroup,
+  createGroups,
+  resetGroups,
+  updateGroup,
+} from "./../services/groupService";
 
 class Groups extends Component {
   state = {};
+
   async componentDidMount() {
     const { data: groups } = await trackPromise(getGroups());
     const { data: students } = await getStudents();
+    const { data: topics } = await getTopics();
 
-    this.setState({ groups, students });
+    const unallocStudents = _.groupBy(students, "allocated").false || [];
+
+    groups.map((group) => (this[`${group.number}_ref`] = React.createRef()));
+
+    this.setState({ groups, unallocStudents, topics });
   }
 
+  addGroupHandler = async (topic) => {
+    const { data: group } = await createGroup({
+      topic,
+      studentIds: [],
+      settings: { maxNumber: 4 },
+    });
+
+    let { groups } = this.state;
+    groups.push(group);
+    this[`${group.number}_ref`] = React.createRef();
+    this.setState({ groups });
+  };
+
   createGroupHandler = async () => {
-    await createGroups();
-    window.location = "/me/groups";
+    this.setState({ unallocStudents: [] });
+    this.setState({ groups: null });
+
+    await trackPromise(createGroups());
+    const { data: groups } = await trackPromise(getGroups());
+    this.setState({ groups });
   };
 
   resetGroupHandler = async () => {
-    await resetGroups();
-    window.location = "/me/groups";
+    this.setState({ groups: null });
+    await trackPromise(resetGroups());
+
+    const { data: students } = await trackPromise(getStudents());
+    this.setState({ unallocStudents: students });
+  };
+
+  removeStudentHandler = async (student, group) => {
+    const { groups, unallocStudents } = this.state;
+
+    const studentList = group.students.filter((s) => s._id !== student._id);
+
+    group.students = studentList;
+    groups[groups.findIndex((g) => g._id === group._id)] = group;
+    this.setState({ groups });
+
+    unallocStudents.push(student);
+    this.setState({ unallocStudents });
+
+    const studentIds = studentList.map((student) => student._id);
+    group.studentIds = studentIds;
+
+    await updateAllocation(student._id);
+    await updateGroup(group);
+  };
+
+  addStudentHandler = async (group) => {
+    let { groups, unallocStudents } = this.state;
+
+    const addedStudents = this[
+      `${group.number}_ref`
+    ].current.getSelectedItems();
+
+    group.students.push(...addedStudents);
+    groups[groups.findIndex((g) => g._id === group._id)] = group;
+    this.setState({ groups });
+
+    unallocStudents = unallocStudents.filter(
+      (student) => !addedStudents.includes(student)
+    );
+    this.setState({ unallocStudents });
+
+    groups.map((g) => this[`${g.number}_ref`].current.resetSelectedValues());
+
+    const studentIds = group.students.map((student) => student._id);
+    group.studentIds = studentIds;
+
+    addedStudents.map(async (s) => await updateAllocation(s._id));
+    await updateGroup(group);
   };
 
   render() {
-    const { groups, students } = this.state;
+    const { groups, unallocStudents, topics } = this.state;
+
     return (
       <UserContext.Consumer>
         {(user) => (
@@ -50,6 +130,18 @@ class Groups extends Component {
                   </button>
                   {groups && groups.length ? (
                     <>
+                      <DropdownButton title="New Group">
+                        <i className="ml-4">Select Topic for group</i>
+                        <Dropdown.Divider />
+                        {topics.map((topic) => (
+                          <Dropdown.Item
+                            key={topic._id}
+                            onSelect={() => this.addGroupHandler(topic.title)}
+                          >
+                            {topic.title}
+                          </Dropdown.Item>
+                        ))}
+                      </DropdownButton>
                       <button
                         type="button"
                         className="btn btn-sm btn-outline-success"
@@ -77,72 +169,103 @@ class Groups extends Component {
                 </div>
               </div>
             </div>
-            {groups && groups.length ? (
-              <div className="alert alert-success" role="alert">
-                Groups are assigned!
-              </div>
+            {unallocStudents && unallocStudents.length ? (
+              <>
+                <div className="alert alert-warning" role="alert">
+                  All students are not assigned!
+                </div>
+                <table className="table">
+                  <thead className="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Students</th>
+                      <th scope="col">Preferred Topic</th>
+                      <th scope="col">Skills</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {unallocStudents.map((student, index) => (
+                      <tr key={student._id}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{student.name}</td>
+                        <td>{student.topic}</td>
+                        <td>{student.skills}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
             ) : (
-              <div className="alert alert-warning" role="alert">
-                Groups are not assigned!
+              <div className="alert alert-success" role="alert">
+                All students assigned!
               </div>
             )}
-            <div className="table-responsive d-flex justify-content-center">
-              {groups && groups.length
-                ? groups.map((group) => (
-                    <div className="login-body w-50 m-3" key={group._id}>
-                      <div className="alert alert-info" role="alert">
-                        <h5 style={{ display: "inline" }}>
-                          <span className="badge badge-pill badge-light">
-                            {group.name}
-                          </span>{" "}
-                        </h5>
-                        {group.topic}
-                      </div>
-
-                      <table className="table">
-                        <thead className="thead-dark">
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Students</th>
-                            <th scope="col">Skills</th>
-                            <th scope="col">Tools</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {group.students.map((student, index) => (
-                            <tr key={student._id}>
-                              <th scope="row">{index + 1}</th>
-                              <td>{student.name}</td>
-                              <td>{student.skills}</td>
-                              <td>{student.tools}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+            <div className="table-responsive d-flex flex-wrap justify-content-center">
+              {groups &&
+                groups.length &&
+                groups.map((group) => (
+                  <div
+                    className="login-body m-2"
+                    style={{ width: "48%" }}
+                    key={group._id}
+                  >
+                    <div className="alert alert-info" role="alert">
+                      <h5 style={{ display: "inline" }}>
+                        <span className="badge badge-pill badge-light">
+                          {group.name}
+                        </span>{" "}
+                      </h5>
+                      {group.topic}
                     </div>
-                  ))
-                : students && (
+
                     <table className="table">
                       <thead className="thead-dark">
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Students</th>
                           <th scope="col">Skills</th>
-                          <th scope="col">Tools</th>
+                          <th />
                         </tr>
                       </thead>
                       <tbody>
-                        {students.map((student, index) => (
+                        {group.students.map((student, index) => (
                           <tr key={student._id}>
                             <th scope="row">{index + 1}</th>
                             <td>{student.name}</td>
                             <td>{student.skills}</td>
-                            <td>{student.tools}</td>
+                            <td>
+                              <i
+                                className="fas fa fa-minus-square clickable"
+                                onClick={() =>
+                                  this.removeStudentHandler(student, group)
+                                }
+                              ></i>
+                            </td>
                           </tr>
                         ))}
+                        <tr>
+                          <td />
+                          <td>
+                            <Multiselect
+                              id={group.number}
+                              options={unallocStudents}
+                              displayValue="name"
+                              placeholder="Add Students"
+                              ref={this[`${group.number}_ref`]}
+                            />
+                          </td>
+                          <td />
+                          <td>
+                            <i
+                              className="fas fa fa-plus-square clickable"
+                              onClick={() => this.addStudentHandler(group)}
+                            ></i>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
-                  )}
+                  </div>
+                ))}
               <Loading />
             </div>
           </main>

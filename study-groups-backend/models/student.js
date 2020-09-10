@@ -10,8 +10,7 @@ const studentSchema = new mongoose.Schema({
   course: { type: courseSchema, required: true },
   topic: { type: String },
   skills: { type: String },
-  tools: { type: String },
-  // topics: [{ type: topicSchema }],
+  allocated: { type: Boolean },
 });
 
 const Student = mongoose.model("Students", studentSchema);
@@ -23,8 +22,6 @@ function validateStudent(student) {
     courseId: Joi.string().required(),
     topicId: Joi.string().required(),
     skills: Joi.string(),
-    tools: Joi.string(),
-    //topicIds: Joi.array().items(Joi.string()).min(2),
   });
   return schema.validate(student);
 }
