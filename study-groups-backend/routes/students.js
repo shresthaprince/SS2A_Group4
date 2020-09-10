@@ -31,7 +31,6 @@ router.post("/", [auth, admin], async (req, res) => {
     course: await Course.findById(req.body.courseId),
     topic: (await Topic.findById(req.body.topicId)).title,
     skills: req.body.skills,
-    tools: req.body.tools,
     //topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
   });
   student = await student.save();
@@ -53,8 +52,22 @@ router.put("/:id", [auth, admin], async (req, res) => {
       course: await Course.findById(req.body.courseId),
       topic: await Topic.findById(req.body.topicId),
       skills: req.body.skills,
-      tools: req.body.tools,
       //topics: await Topic.find({ _id: { $in: req.body.topicIds } }),
+    },
+    { new: true }
+  );
+  if (!student) return res.status(404).send("Student does not exist");
+
+  res.send(student);
+});
+
+router.put("/:id/allocated", [auth, admin], async (req, res) => {
+  const { allocated } = await Student.findById(req.params.id);
+
+  const student = await Student.findByIdAndUpdate(
+    req.params.id,
+    {
+      allocated: !allocated,
     },
     { new: true }
   );

@@ -27,7 +27,7 @@ router.post("/", [auth, admin], async (req, res) => {
 
   let group = new Group({
     number: groups.length + 1,
-    name: `Group ${groups.length + 1}`,
+    name: `Group #${groups.length + 1}`,
     topic: req.body.topic,
     students:
       req.body.studentIds &&
@@ -42,9 +42,15 @@ router.post("/", [auth, admin], async (req, res) => {
 router.post("/new", [auth, admin], async (req, res) => {
   await Group.deleteMany({});
   const students = await Student.find();
+  await Student.updateMany(
+    {},
+    { $set: { allocated: true } },
+    { multi: true },
+    (err, writeResult) => {}
+  );
 
   let groups = _.groupBy(students, "topic");
-  groups = groupBySkills(groups);
+  //groups = groupBySkills(groups);
 
   let groupNumber = 0;
 
@@ -75,8 +81,9 @@ router.put("/:id", auth, async (req, res) => {
   const group = await Group.findByIdAndUpdate(
     req.params.id,
     {
-      number: groups.length + 1,
+      number: req.body.number,
       name: req.body.name,
+      topic: req.body.topic,
       students:
         req.body.studentIds &&
         (await Student.find({ _id: { $in: req.body.studentIds } })),
@@ -92,6 +99,13 @@ router.put("/:id", auth, async (req, res) => {
 router.delete("/", [auth, admin], async (req, res) => {
   await Group.deleteMany({});
 
+  await Student.updateMany(
+    {},
+    { $set: { allocated: false } },
+    { multi: true },
+    (err, writeResult) => {}
+  );
+
   res.send("Deleted");
 });
 
@@ -102,33 +116,33 @@ router.delete("/:id", auth, async (req, res) => {
   res.send(group);
 });
 
-function groupBySkills(groups) {
-  let result = {};
-  Object.keys(groups).forEach((topic) => {
-    let helper = {};
-    const group = groups[topic];
+// function groupBySkills(groups) {
+//   let result = {};
+//   Object.keys(groups).forEach((topic) => {
+//     let helper = {};
+//     const group = groups[topic];
 
-    result = group.reduce((result, student) => {
-      key = topic + "-" + student.skills;
+//     result = group.reduce((result, student) => {
+//       key = topic + "-" + student.skills;
 
-      if (!result[topic]) {
-        result[topic] = [];
-        result[topic].push(student);
-        helper[key] = [];
-      } else if (helper[key]) {
-        if (!result[key]) {
-          result[key] = [];
-          result[key].push(student);
-        }
-      } else {
-        helper[key] = [];
-        result[topic].push(student);
-      }
+//       if (!result[topic]) {
+//         result[topic] = [];
+//         result[topic].push(student);
+//         helper[key] = [];
+//       } else if (helper[key]) {
+//         if (!result[key]) {
+//           result[key] = [];
+//           result[key].push(student);
+//         }
+//       } else {
+//         helper[key] = [];
+//         result[topic].push(student);
+//       }
 
-      return result;
-    }, result);
-  });
-  return result;
-}
+//       return result;
+//     }, result);
+//   });
+//   return result;
+// }
 
 module.exports = router;

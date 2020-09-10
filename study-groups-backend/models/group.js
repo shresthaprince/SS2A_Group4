@@ -17,9 +17,9 @@ const Group = mongoose.model("Groups", groupSchema);
 function validateGroup(group) {
   const schema = Joi.object({
     number: Joi.number().min(1),
-    name: Joi.string().required().min(5).max(100),
+    name: Joi.string().min(5).max(100),
     topic: Joi.string(),
-    studentIds: Joi.array().items(Joi.string()).max(4), //group.settings.maxNumber
+    studentIds: Joi.array().items(Joi.string()), //group.settings.maxNumber
     settings: Joi.object().required(),
   });
   return schema.validate(group);

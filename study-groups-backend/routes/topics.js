@@ -23,7 +23,6 @@ router.post("/", [auth, admin], async (req, res) => {
   let topic = new Topic({
     title: req.body.title,
     skills: req.body.skills,
-    tools: req.body.tools,
   });
   topic = await topic.save();
 
@@ -36,7 +35,7 @@ router.put("/:id", [auth, admin], async (req, res) => {
 
   const topic = await Topic.findByIdAndUpdate(
     req.params.id,
-    { title: req.body.title, skills: req.body.skills, tools: req.body.tools },
+    { title: req.body.title, skills: req.body.skills },
     { new: true }
   );
   if (!topic) return res.status(404).send("Topic does not exist");
