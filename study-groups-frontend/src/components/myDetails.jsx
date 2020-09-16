@@ -16,6 +16,7 @@ class MyDetails extends Component {
   }
   
   
+  
   render() {
     
     return (

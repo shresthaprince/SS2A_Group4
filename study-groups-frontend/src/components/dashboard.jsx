@@ -4,21 +4,16 @@ import Sidebar from "./sidebar";
 import MyDetails from "./myDetails";
 import Interests from "./interests";
 import Skills from "./skills";
-import Tools from "./tools";
 import Mygroup from "./mygroup";
-import admcurses from "./admcurses";
-import admfaculty from "./admfaculty";
-import admtopics from "./admtopics";
 import Courses from "./courses";
 import Facultys from "./admfaculty";
-
 import Signup from "./signup";
 import Test from "./testpage";
 import Manualgroup from "./manualGroup";
 import Multi from "./multipage";
-
 import Groups from "./groups";
 import Class from "./class";
+import Topic from "./topic";
 
 
 class Dashboard extends Component {
@@ -35,7 +30,7 @@ class Dashboard extends Component {
             <Route path="/me/admfaculty" component={Facultys} />
             <Route path="/me/admtopics" component={Interests} />
             <Route path="/me/skills" component={Skills} />
-            <Route path="/me/tools" component={Tools} />
+            <Route path="/me/topic" component={Topic} />
             <Route path="/me/mygroup" component={Mygroup} />
             <Route path="/me/groups" component={Groups} />
             <Route path="/me/manualgroup" component={Manualgroup} />

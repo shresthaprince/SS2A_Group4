@@ -13,9 +13,16 @@ function Sidebar() {
           <li className="nav-item">
             <NavLink className="nav-link active" to="/me">
               <span data-feather="home"></span>
-              My Details <span className="sr-only">(current)</span>
+              Faculty&Curse <span className="sr-only">(current)</span>
             </NavLink>
           </li>
+           <li className="nav-item">
+            <NavLink className="nav-link" to="/me/topic">
+              <span data-feather="users"></span>
+              Topic Selection
+            </NavLink>
+          </li>   
+           
           <li className="nav-item">
             <NavLink className="nav-link" to="/me/class">
               <span data-feather="shopping-cart"></span>
@@ -40,7 +47,7 @@ function Sidebar() {
               My Group
             </NavLink>
           </li>   
-           
+         
       
         </ul>
       </div>

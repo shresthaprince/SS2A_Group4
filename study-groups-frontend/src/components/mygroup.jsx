@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserContext from "./context/userContext";
 import "../styles/slide_left.css";
 import { getTopics, addTopic, removeTopic } from "./../services/topicService";
-import {Multiselect} from 'multiselect-react-dropdown';
+import { Multiselect } from "multiselect-react-dropdown";
 
 class Class extends Component {
   state = {};
@@ -13,12 +13,10 @@ class Class extends Component {
     this.inputTopicRef = React.createRef();
   }
 
-
   async componentDidMount() {
     const { data: topics } = await getTopics();
     this.setState({ topics });
   }
-  
 
   validation = ({ currentTarget }) => {
     currentTarget.value.length > 7 && this.setState({ invalid: false });
@@ -27,7 +25,6 @@ class Class extends Component {
   addTopicHandler = async () => {
     const { value: title } = this.inputTopicRef.current;
     const { topics } = this.state;
-  
 
     if (title.length < 8) {
       this.setState({ invalid: true });
@@ -35,23 +32,19 @@ class Class extends Component {
       const { data: topic } = await addTopic({ title });
       topics.push(topic);
       this.setState({ topics });
-      
     }
   };
 
-  removeTopicHandler = async (topicId) => {
-    let { topics } = this.state;
+  // to (topic) {
+  //   topic.map(function(s){
+  //     return {topic : s}
+  //   })
+  // }
 
-    topics = topics.filter((t) => t._id !== topicId);
-    this.setState({ topics });
-
-    await removeTopic(topicId);
+  arrayToObject = (array) => {
+    array = array.map((s) => ({ value: s }));
+    return array;
   };
-
-  stringToObject=(array)=>{
-    array = array.map((s)=>({value:s}))
-    return array
-  }
 
   render() {
     const { topics } = this.state;
@@ -83,55 +76,49 @@ class Class extends Component {
             </div>
             <div className="login-body m-2">
               <div className="alert alert-info" role="alert">
-                <h5 style={{ display: "inline" }}>{user.name} Select Topic and Skills</h5>
+                <h5 style={{ display: "inline" }}>
+                  {user.name} Select Topic and Skills
+                </h5>
               </div>
-              
+
               <table className="table">
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
+                    <th scope="col">Topic</th>
                     <th scope="col">Skills</th>
 
-                    
                     <th />
                   </tr>
                 </thead>
                 <tbody>
                   {topics &&
                     topics.map((topic, index) => (
-                      
-                      <tr key={topic._id}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{topic.title}</td> 
-                        <td><Multiselect options={this.stringToObject(topic.skills)} displayValue="value"/></td>
+                      <tr>
                         <td>
-                        <i
-                        className="fas fa fa-plus-square clickable"
-                        onClick={this.addTopicHandler}
-                      ></i>
-                       <div class="mt-2 col-md-12"> </div>
+                          <Multiselect
+                            options={this.arrayToObject(topic.title)}
+                            displayValue="value"
+                          />
+                        </td>
+                        <td>
+                          <Multiselect
+                            options={this.arrayToObject(topic.skills)}
+                            displayValue="value"
+                          />
+                        </td>
+                        <td>
                           <i
-                            className="fas fa fa-minus-square clickable"
-                            onClick={() => this.removeTopicHandler(topic._id)}
+                            className="fas fa fa-plus-square clickable"
+                            onClick={this.addTopicHandler}
                           ></i>
                         </td>
                       </tr>
                     ))}
-                  <tr>
-                    
-                    <td />
-                    <td>
-                      
-                    </td>
-                    <td>
-                    
-                    </td>
-                  </tr>
+
+                  <td />
                 </tbody>
               </table>
             </div>
-            
           </main>
         )}
       </UserContext.Consumer>
