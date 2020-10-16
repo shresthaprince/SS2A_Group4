@@ -64,7 +64,7 @@ class Topic extends Component {
         </select>
       </div> 
       {!_.isEmpty(this.state.selectedTopic) && <React.Fragment> <h5>Select your Skills</h5>
-          <select name="skills" id="skills" className="form-control" >
+          <select multiple name="skills" id="skills" className="form-control" >
         {this.state.selectedTopic[0].skills.map(skill=><option key={skill} >{skill}</option>)}
         </select>
          </React.Fragment>} 

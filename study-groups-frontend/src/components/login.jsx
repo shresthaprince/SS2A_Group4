@@ -4,7 +4,7 @@ import "../styles/login.css";
 import auth from "../services/authService";
 import { trackPromise } from "react-promise-tracker";
 import Loading from "./utils/loading";
-
+import GoogleButton from 'react-google-button'
 class Login extends Component {
   state = {
     data: {
@@ -73,14 +73,21 @@ class Login extends Component {
                 <input type="checkbox" value="remember-me" /> Remember me
               </label>
             </div>
+            
             <button
               className="btn btn-lg btn-primary btn-block"
               onClick={this.submitHandler}
             >
               Sign in
             </button>
+            <div class="mt-2 col-md-12"> </div>
+            <GoogleButton
+  onClick={() => { console.log('Google button clicked') }}
+/>
             <p className="mt-5 mb-3 text-muted">&copy; 2020</p>
+            
           </form>
+          
         )}
         <Loading />
       </div>
